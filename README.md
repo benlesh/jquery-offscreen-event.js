@@ -5,6 +5,8 @@ An offscreen event implementation for JQuery
 
 This JQuery plugin will add an "offscreen" event type to JQuery.
 
+Demo here: http://jsfiddle.net/blesh/H4s5B/
+
 To be used as follows:
 
     $('#someselector').on('offscreen', function(e) {
