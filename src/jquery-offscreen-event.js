@@ -45,7 +45,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 var prop = watched[uid],
                     elems = [ prop.elem ];
                 if(prop.selector) {
-                      elems = $(elem).find(prop.selector);   
+                      elems = $(prop.elem).find(prop.selector);   
                 }
                 for(var i = 0; i < elems.length; i++) {
                     var elem = elems[i];
