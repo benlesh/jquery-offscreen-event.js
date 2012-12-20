@@ -77,10 +77,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
     };
 })(jQuery, document, window);
-
-$('#container').click(function (){
-   $(this).append('<div id="test">test</div>'); 
-});
-$('#container').on('offscreen', '#test', function(e) {
-    console.log('one', e.offscreen);
-});?
