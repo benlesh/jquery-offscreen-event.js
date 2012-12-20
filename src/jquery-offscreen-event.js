@@ -43,30 +43,33 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 watched = doc.data('offscreen.watched');
             for (var uid in watched) {
                 var prop = watched[uid],
-                    elem = prop.elem;
+                    elems = [ prop.elem ];
                 if(prop.selector) {
-                      elem = $(elem).find(prop.selector)[0];   
+                      elems = $(elem).find(prop.selector);   
                 }
-                if (elem) {
-                    var offset = $(elem).offset(),
-                        scrollLeft = $(document).scrollLeft(),
-                        scrollTop = $(document).scrollTop(),
-                        offscreen = {
-                            left: scrollLeft - offset.left,
-                            top: scrollTop - offset.top,
-                            bottom: offset.top - (scrollTop + $(window).height()),
-                            right: offset.left - (scrollLeft + $(window).width())
-                        };
-                    if (offscreen.left > 0 || offscreen.top > 0 || offscreen.bottom > 0 || offscreen.right > 0) {
-                        event.type = 'offscreen';
-                        event.offscreen = offscreen;
-                        event.target = elem;
-                        $.event.handle.apply(prop.delegateTarget, arguments);
+                for(var i = 0; i < elems.length; i++) {
+                    var elem = elems[i];
+                    if (elem) {
+                        var offset = $(elem).offset(),
+                            scrollLeft = $(document).scrollLeft(),
+                            scrollTop = $(document).scrollTop(),
+                            offscreen = {
+                                left: scrollLeft - offset.left,
+                                top: scrollTop - offset.top,
+                                bottom: offset.top - (scrollTop + $(window).height()),
+                                right: offset.left - (scrollLeft + $(window).width())
+                            };
+                        if (offscreen.left > 0 || offscreen.top > 0 || offscreen.bottom > 0 || offscreen.right > 0) {
+                            event.type = 'offscreen';
+                            event.offscreen = offscreen;
+                            event.target = elem;
+                            $.event.handle.apply(prop.delegateTarget, arguments);
+                        }
                     }
                 }
             }
-        }
-       , add: function(handleObj) {
+        }, 
+        add: function(handleObj) {
             if (handleObj.selector) {
                 var self = $(this),
                     watched = $(document).data('offscreen.watched'),
